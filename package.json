@@ -1,0 +1,24 @@
+{
+  "name": "webapp-sample",
+  "version": "1.0.0",
+  "description": "A Sample WebApp for testing k8s",
+  "main": "main.js",
+  "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "serve": "node main.js",
+      "dev": "supervisor main.js",
+      "build": "esbuild main.js --bundle --platform=node --outfile=out.js"
+  },
+  "keywords": [
+    "npm",
+    "vuejs",
+    "nodejs",
+    "k8s"
+  ],
+  "author": "Heph",
+  "license": "ISC",
+  "dependencies": {
+    "@vue/cli": "^5.0.8",
+    "express": "^4.18.1"
+  }
+}
