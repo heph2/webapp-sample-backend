@@ -57,7 +57,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         context: .
-        file: docker/core/Dockerfile
+#        file: docker/core/Dockerfile
         push: false
         tags: test
         cache-from: type=local,src=/tmp/.buildx-cache
