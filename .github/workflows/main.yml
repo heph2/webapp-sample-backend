@@ -30,18 +30,18 @@ jobs:
       with:
         credentials_json: ${{ secrets.GCP_CREDENTIALS }}
 
-    - name: Docker Login to GAR
-      uses: docker/login-action@v2
-      with:
-        registry: 'europe-west8-docker.pkg.dev'
-        username: _json_key
-        password: ${{ secrets.GCP_CREDENTIALS }}
+#    - name: Docker Login to GAR
+#      uses: docker/login-action@v2
+#      with:
+#        registry: 'europe-west8-docker.pkg.dev'
+#        username: _json_key
+#        password: ${{ secrets.GCP_CREDENTIALS }}
 
-    - name: Setup GKE credentials
-      uses: google-github-actions/get-gke-credentials@v0
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
+#    - name: Setup GKE credentials
+#      uses: google-github-actions/get-gke-credentials@v0
+#      with:
+#        cluster_name: ${{ env.GKE_CLUSTER }}
+#        location: ${{ env.GKE_ZONE }}
 
     - name: 'Cache node_modules'
       uses: actions/setup-node@v3
