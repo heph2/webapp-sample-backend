@@ -52,13 +52,20 @@ jobs:
 #        node-version: '16'
 #        cache: 'npm'
 #        path: /tmp/.buildx-cache
+
+    - name: get npm cache dir
+      id: npm-cache-dir
+      run: |
+        echo "::set-output name=dir::$(npm config get cache)"
+
     - name: Cache docker layers
-      uses: actions/cache@v2
+      id: npm-cache
+      uses: actions/cache@v3
       with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        path: ${{ steps.npm-cache-dir.outputs.dir }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          ${{ runner.os }}-buildx-
+          ${{ runner.os }}-node-
 
     - name: Build production image
       uses: docker/build-push-action@v2
@@ -67,8 +74,8 @@ jobs:
 #        file: docker/core/Dockerfile
         push: false
         tags: test
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
+        cache-from: type=local,src=${{ steps.npm-cache-dir.outputs.dir }}
+        cache-to: type=local,mode=max,dest=${{ steps.npm-cache-dir.outputs.dir }}
 
         # https://github.com/moby/buildkit/issues/1896
     - name: Move cache
