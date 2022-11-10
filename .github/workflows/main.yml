@@ -59,7 +59,7 @@ jobs:
         context: .
         file: docker/core/Dockerfile
         push: false
-        tags: $GKE_LOCATION-docker.pkg.dev/$PROJECT_ID/$REPO/$IMAGE:$GITHUB_SHA
+        tags: test
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
 
