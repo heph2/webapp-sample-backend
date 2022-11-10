@@ -46,12 +46,19 @@ jobs:
 #        cluster_name: ${{ env.GKE_CLUSTER }}
 #        location: ${{ env.GKE_ZONE }}
 
-    - name: 'Cache node_modules'
-      uses: actions/setup-node@v3
+#    - name: 'Cache node_modules'
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: '16'
+#        cache: 'npm'
+#        path: /tmp/.buildx-cache
+    - name: Cache docker layers
+      uses: actions/cache@v2
       with:
-        node-version: '16'
-        cache: 'npm'
         path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
 
     - name: Build production image
       uses: docker/build-push-action@v2
